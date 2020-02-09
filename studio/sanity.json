@@ -1,0 +1,24 @@
+{
+  "root": true,
+  "project": {
+    "name": "nachtschatt",
+    "basePath": "/studio"
+  },
+  "api": {
+    "projectId": "tr8i0v52",
+    "dataset": "production"
+  },
+  "plugins": [
+    "@sanity/base",
+    "@sanity/components",
+    "@sanity/default-layout",
+    "@sanity/default-login",
+    "@sanity/desk-tool"
+  ],
+  "parts": [
+    {
+      "name": "part:@sanity/base/schema",
+      "path": "./schemas/schema.js"
+    }
+  ]
+}

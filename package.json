@@ -1,0 +1,36 @@
+{
+  "name": "nachtschatt",
+  "private": true,
+  "scripts": {
+    "web:cleanup": "yarn workspace web run cleanup",
+    "web:upgrade-all": "yarn workspace web run upgrade-all",
+    "web:lint": "yarn workspace web lint",
+    "web:dev": "yarn workspace web dev",
+    "web:build": "yarn workspace web build",
+    "web:serve": "yarn workspace web serve",
+    "studio:cleanup": "yarn workspace studio run cleanup",
+    "studio:upgrade-all": "yarn workspace studio run upgrade-all",
+    "studio:lint": "yarn workspace studio lint",
+    "studio:dev": "yarn workspace studio dev",
+    "studio:build": "yarn workspace studio build",
+    "studio:serve": "yarn workspace studio serve",
+    "studio:backup": "yarn workspace studio backup",
+    "cleanup": "concurrently 'rm -rf node_modules/.cache/' 'yarn studio:cleanup'  'yarn web:cleanup'",
+    "upgrade-all": "npm-upgrade && yarn studio:upgrade-all && yarn web:upgrade-all",
+    "lint": "concurrently 'yarn studio:lint'  'yarn web:lint'",
+    "dev": "concurrently 'yarn studio:dev'  'yarn web:dev'",
+    "build": "rm -rf dist && concurrently --kill-others-on-fail 'yarn studio:build' 'yarn web:build' && cp -r web/build dist && cp -r studio/dist dist/studio",
+    "serve": "https-server dist/"
+  },
+  "workspaces": [
+    "web",
+    "studio"
+  ],
+  "devDependencies": {
+    "concurrently": "5.1.0",
+    "eslint": "6.8.0"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  }
+}
