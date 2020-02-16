@@ -9186,6 +9186,11 @@ node-fetch@^1.0.1:
     encoding "^0.1.11"
     is-stream "^1.0.1"
 
+node-fetch@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
+  integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
+
 node-forge@0.9.0:
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.9.0.tgz#d624050edbb44874adca12bb9a52ec63cb782579"
@@ -9898,6 +9903,13 @@ picomatch@^2.0.4, picomatch@^2.0.7:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.2.1.tgz#21bac888b6ed8601f831ce7816e335bc779f0a4a"
   integrity sha512-ISBaA8xQNmwELC7eOjqFKMESB2VIqt4PPDD0nsS95b/9dZXvVKOlz9keMSnoGGKcOHXfTvDD6WMaRoSc9UuhRA==
+
+picosanity@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/picosanity/-/picosanity-2.0.2.tgz#2d5552731d66479a296334bd90a814449a587ad4"
+  integrity sha512-lCp5TqmL6nBDY/G34Y9skVG95RgHPSpPO30041jL5oUyCb3N+72RAzO3YMnmVPU1DTx9tWQaByWxl6UroYoQvw==
+  dependencies:
+    node-fetch "^2.6.0"
 
 pify@^2.0.0, pify@^2.3.0:
   version "2.3.0"
