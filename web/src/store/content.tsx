@@ -8,11 +8,14 @@ export enum Status {
 }
 
 interface Config extends Sanity.Document {
-  about: string
   title: string
   description: string
   coverImage: Sanity.Asset
   socialImage: Sanity.Asset
+  about: {
+    image: Sanity.Asset
+    text: Sanity.Block[]
+  }
 }
 
 interface Work extends Sanity.Document {

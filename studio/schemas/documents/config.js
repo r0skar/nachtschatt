@@ -23,6 +23,12 @@ export default {
       validation: Rule => Rule.required().max(250)
     },
     {
+      name: 'coverImage',
+      type: 'reference',
+      title: 'Cover Image',
+      to: [{ type: 'work' }]
+    },
+    {
       name: 'socialImage',
       type: 'image',
       title: 'Site Image',
@@ -30,16 +36,24 @@ export default {
       validation: Rule => Rule.required()
     },
     {
-      name: 'coverImage',
-      type: 'reference',
-      title: 'Cover Image',
-      to: [{ type: 'work' }]
-    },
-    {
       name: 'about',
-      type: 'text',
-      title: 'About me',
-      rows: 8
+      type: 'object',
+      title: 'About',
+      fields: [
+        {
+          name: 'image',
+          type: 'image',
+          title: 'About Image',
+          description: 'Image for the About page',
+          validation: Rule => Rule.required()
+        },
+        {
+          name: 'text',
+          type: 'blockContent',
+          title: 'About me',
+          validation: Rule => Rule.required()
+        }
+      ]
     }
   ]
 }

@@ -22,7 +22,9 @@ const CoverImage = styled.img`
 
 export const Home: React.FC = () => {
   const { content } = useContent()
-  const coverImg = useImage(content.config.coverImage).width(1200).url()!
+  const coverImg = useImage(content.config.coverImage)
+    .width(1200)
+    .url()!
 
   return (
     <CoverImageContainer>

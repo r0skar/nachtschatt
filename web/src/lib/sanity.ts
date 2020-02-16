@@ -1,5 +1,6 @@
 import PicoSanity, * as Sanity from 'picosanity'
 import SanityImageUrl from '@sanity/image-url'
+import SanityBlockContent from '@sanity/block-content-to-react'
 
 export { Sanity }
 
@@ -11,6 +12,10 @@ export const sanityConfig: Sanity.Config = {
 
 export const useClient = () => {
   return new PicoSanity(sanityConfig)
+}
+
+export const useBlocks = (blocks: Sanity.Block[]) => {
+  return SanityBlockContent({ blocks, serializers: {} })
 }
 
 export const useImage = (src: Sanity.Asset) => {
