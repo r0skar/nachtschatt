@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useContent } from '../store/content'
-import { useImage, useBlocks } from '../lib/sanity'
+import { Image, BlockContent } from '../lib/sanity'
 import { Wrap } from '../components/UI'
 
 const Grid = styled.article`
@@ -9,25 +9,22 @@ const Grid = styled.article`
   height: 100%;
 `
 
-const Image = styled.img`
+const CoverImage = styled(Image)`
   display: block;
 `
 
-const Content = styled.div`
+const Content = styled(BlockContent)`
   display: block;
 `
 
 export const About: React.FC = () => {
   const { content } = useContent()
-  const image = useImage(content.config.about.image)
-    .width(600)
-    .url()!
 
   return (
     <Wrap fillHeight>
       <Grid>
-        <Image src={image} />
-        <Content>{useBlocks(content.config.about.text)}</Content>
+        <CoverImage src={content.config.about.image} options={{ width: 600 }} />
+        <Content blocks={content.config.about.text} />
       </Grid>
     </Wrap>
   )

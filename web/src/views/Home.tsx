@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useContent } from '../store/content'
-import { useImage } from '../lib/sanity'
+import { Image } from '../lib/sanity'
 
 const CoverImageContainer = styled.div`
   position: fixed;
@@ -12,7 +12,7 @@ const CoverImageContainer = styled.div`
   z-index: -1;
 `
 
-const CoverImage = styled.img`
+const CoverImage = styled(Image)`
   display: block;
   height: 100%;
   width: 100%;
@@ -22,13 +22,10 @@ const CoverImage = styled.img`
 
 export const Home: React.FC = () => {
   const { content } = useContent()
-  const coverImg = useImage(content.config.coverImage)
-    .width(1200)
-    .url()!
 
   return (
     <CoverImageContainer>
-      <CoverImage src={coverImg} alt={content.config.title} />
+      <CoverImage src={content.config.coverImage} alt={content.config.title} options={{ width: 1200 }} />
     </CoverImageContainer>
   )
 }

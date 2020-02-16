@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
-import { Sanity, useClient } from '../lib/sanity'
+import { Sanity, client } from '../lib/sanity'
 
 export enum Status {
   FETCHING = 'fetching',
@@ -49,7 +49,6 @@ interface State {
   content: Content
 }
 
-const SanityClient = useClient()
 const Context = createContext({} as State)
 
 const query = `{
@@ -71,7 +70,7 @@ export const ContentProvider: React.FC = ({ children }) => {
       setStatus(Status.FETCHING)
 
       try {
-        const response = await SanityClient.fetch<Content>(query)
+        const response = await client.fetch<Content>(query)
         setContent(response)
         setStatus(Status.FETCHED)
       } catch (e) {
