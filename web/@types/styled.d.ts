@@ -1,10 +1,10 @@
 import 'styled-components'
 
-type FontFamilies = 'sans' | 'serif'
-type Colors = 'fg' | 'bg' | 'primary' | 'subtle'
-type Breakpoints = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-
 declare module 'styled-components' {
+  type FontFamilies = 'sans' | 'serif'
+  type Colors = 'fg' | 'bg' | 'primary' | 'subtle'
+  type Breakpoints = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+
   export interface DefaultTheme {
     baseline: number
     baseTextSize: string

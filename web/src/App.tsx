@@ -1,22 +1,23 @@
-import React from 'react'
-import { ThemeProvider } from 'styled-components'
-import { BrowserRouter } from 'react-router-dom'
-import { ContentProvider } from './store/content'
-import { theme } from './design/theme'
-import { GlobalStyle } from './design/globalStyle'
-import { AppHeader } from './components/AppHeader'
-import { AppMain } from './components/AppMain'
+import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import { AppNav } from './components/AppNav'
+import { AppMain } from './components/AppMain'
+import { AppHeader } from './components/AppHeader'
 
-export const App: React.FC = () => (
-  <ThemeProvider theme={theme}>
-    <ContentProvider>
-      <BrowserRouter>
-        <GlobalStyle />
-        <AppNav />
-        <AppHeader />
-        <AppMain />
-      </BrowserRouter>
-    </ContentProvider>
-  </ThemeProvider>
-)
+export const App: React.FC = () => {
+  const { location } = useHistory()
+  const [withNav, setNav] = useState(false)
+  const toggleNav = () => setNav(!withNav)
+
+  useEffect(() => {
+    setNav(false)
+  }, [location])
+
+  return (
+    <>
+      {withNav && <AppNav />}
+      <AppHeader toggleNav={toggleNav} />
+      <AppMain />
+    </>
+  )
+}
