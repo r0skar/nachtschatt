@@ -26,16 +26,16 @@ interface Work extends Sanity.Document {
 
 interface Project extends Sanity.Document {
   title: string
-  slug: string
+  slug: Sanity.Slug
   description: string
   works: Work[]
 }
 
 interface Category extends Sanity.Document {
   title: string
-  slug: string
+  slug: Sanity.Slug
   description: string
-  projects: { slug: string; title: string }[]
+  projects: { title: string; slug: Sanity.Slug; cover: Sanity.Asset }[]
 }
 
 interface Content {
@@ -53,7 +53,7 @@ const Context = createContext({} as State)
 
 const query = `{
   "config": *[_type == "config"][0]{ ..., "coverImage": coverImage->{ ...image } },
-  "categories": *[_type == "category"]{ ..., "projects": projects[]->{ slug, title } },
+  "categories": *[_type == "category"]{ ..., "projects": projects[]->{ title, slug, "cover": ^.works[0]->{ ...image } } },
   "projects": *[_type == "project"]{ ..., "works": works[]->{...} }
 }`
 

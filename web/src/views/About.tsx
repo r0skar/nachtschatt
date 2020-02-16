@@ -11,7 +11,7 @@ const Grid = styled.article`
   grid-column-gap: 10vw;
   grid-row-gap: ${({ theme }) => theme.scale(4)};
   grid-template-rows: max-content 1fr;
-  grid-template-columns: 1fr 60vmin;
+  grid-template-columns: 1fr min-content;
   grid-template-areas:
     'image image'
     'content content';
@@ -26,6 +26,7 @@ const Grid = styled.article`
 
 const CoverImage = styled(Image)`
   grid-area: image;
+  min-width: 60vmin;
   width: 100%;
 `
 
