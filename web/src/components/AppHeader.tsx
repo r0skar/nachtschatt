@@ -33,6 +33,7 @@ const MainTitle = styled.h1`
 
 const SubTitle = styled.h2`
   color: ${({ theme }) => theme.colors.subtle};
+  font-size: 1.5rem;
   text-transform: uppercase;
   padding-left: 1ch;
 `

@@ -7,7 +7,7 @@ export const GlobalStyle = createGlobalStyle`
   ${destyle}
 
   *::selection {
-    background-color: ${({ theme }) => theme.colors.fg};
+    background-color: ${({ theme }) => theme.colors.primary};
     color: ${({ theme }) => theme.colors.bg};
   }
 
@@ -28,5 +28,9 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     font-size: 1rem;
+  }
+
+  img, svg, [disabled] {
+    user-select: none;
   }
 `

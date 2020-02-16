@@ -25,6 +25,14 @@ export const styledScrollbar = ({ direction = 'y' }: ScrollbarProps = {}) => css
 
 export const styledArticle = () => css`
   & > *:not(:last-child) {
+    margin-bottom: ${({ theme }) => theme.scale(4)};
+  }
+
+  & h2, h3 {
     margin-bottom: ${({ theme }) => theme.scale(2)};
+  }
+
+  & a {
+    text-decoration: dotted;
   }
 `

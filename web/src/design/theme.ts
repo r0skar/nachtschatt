@@ -9,7 +9,7 @@ export const theme: DefaultTheme = {
     bg: '#ffffff',
     fg: '#222222',
     primary: '#ff0000',
-    subtle: '#eeeeee'
+    subtle: '#aaaaaa'
   },
   fonts: {
     sans: 'Raleway',
