@@ -4,14 +4,16 @@ import { Link } from 'react-router-dom'
 import { Wrap } from './UI'
 
 interface Props {
+  hasSolidBg: boolean
   toggleNav: () => void
 }
 
-const Container = styled.header`
+const Container = styled.header<{ hasSolidBg: boolean }>`
+  background-color: ${({ theme, hasSolidBg }) => hasSolidBg && theme.colors.bg};
+  height: ${({ theme }) => theme.appHeaderHeight};
   position: fixed;
   top: 0;
   left: 0;
-  height: ${({ theme }) => theme.appHeaderHeight};
   width: 100%;
   z-index: 2;
 `
@@ -39,8 +41,8 @@ const NavButton = styled.button`
   width: 2rem;
 `
 
-export const AppHeader: React.FC<Props> = ({ toggleNav }) => (
-  <Container>
+export const AppHeader: React.FC<Props> = ({ toggleNav, hasSolidBg }) => (
+  <Container hasSolidBg={hasSolidBg}>
     <Wrap fillHeight>
       <Grid>
         <MainTitle>

@@ -1,7 +1,7 @@
-import Picosanity, * as Sanity from 'picosanity'
 import React, { createContext, useContext, useState, useEffect } from 'react'
+import { Sanity, useClient } from '../lib/sanity'
 
-enum Status {
+export enum Status {
   FETCHING = 'fetching',
   FETCHED = 'fetched',
   FAILED = 'failed'
@@ -46,16 +46,11 @@ interface State {
   content: Content
 }
 
+const SanityClient = useClient()
 const Context = createContext({} as State)
 
-const client = new Picosanity({
-  projectId: 'tr8i0v52',
-  dataset: 'production',
-  useCdn: true
-})
-
 const query = `{
-  "config": *[_type == "config"][0],
+  "config": *[_type == "config"][0]{ ..., "coverImage": coverImage->{ ...image } },
   "categories": *[_type == "category"]{ ..., "projects": projects[]->{ slug, title } },
   "projects": *[_type == "project"]{ ..., "works": works[]->{...} }
 }`
@@ -73,7 +68,7 @@ export const ContentProvider: React.FC = ({ children }) => {
       setStatus(Status.FETCHING)
 
       try {
-        const response = await client.fetch<Content>(query)
+        const response = await SanityClient.fetch<Content>(query)
         setContent(response)
         setStatus(Status.FETCHED)
       } catch (e) {
