@@ -8,16 +8,16 @@ const Grid = styled.ul`
   display: grid;
   grid-row-gap: ${({ theme }) => theme.scale(2)};
   grid-column-gap: ${({ theme }) => theme.scale(2)};
+  grid-template-columns: repeat(3, 1fr);
 `
 
 const ProjectContainer = styled(Link)`
-  display: inline-block;
+  display: block;
   position: relative;
 `
 
 const ProjectImage = styled(Image)`
   display: block;
-  position: relative;
 `
 
 const ProjectTitle = styled.h2`

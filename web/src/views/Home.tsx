@@ -25,7 +25,12 @@ export const Home: React.FC = () => {
 
   return (
     <CoverImageContainer>
-      <CoverImage source={content.config.coverImage} alt={content.config.title} options={{ width: 1200 }} />
+      <CoverImage
+        source={content.config.coverImage}
+        options={{ width: 1200 }}
+        alt={content.config.title}
+        lazy={false}
+      />
     </CoverImageContainer>
   )
 }

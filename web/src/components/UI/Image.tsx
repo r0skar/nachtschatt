@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as Sanity from 'picosanity'
+import styled from 'styled-components'
 import SanityImageUrl from '@sanity/image-url'
+import { useInView } from 'react-intersection-observer'
 import { ImageUrlBuilderOptions } from '@sanity/image-url/lib/types/types'
 import { sanityConfig } from '../../config'
 
 interface Props {
-  source: Sanity.Asset
   alt?: string
+  lazy?: boolean
   className?: string
+  source: Sanity.Asset
   options?: ImageUrlBuilderOptions
 }
 
@@ -16,8 +19,53 @@ const defaultImageOptions: ImageUrlBuilderOptions = {
   fit: 'max'
 }
 
-export const Image: React.FC<Props> = ({ source, alt, options, className }) => {
-  const imgSrc = SanityImageUrl(sanityConfig).withOptions({ source, ...defaultImageOptions, ...options }).url()!
+const ImageContainer = styled.figure<{ aspectRatio: number }>`
+  display: block;
+  padding-bottom: ${({ aspectRatio }) => `${aspectRatio}%`};
+  position: relative;
+  overflow: hidden;
+`
 
-  return <img src={imgSrc} alt={alt} className={className} />
+const StyledImage = styled.img<{ hasLoaded: boolean }>`
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  opacity: ${({ hasLoaded }) => (hasLoaded ? 1 : 0)};
+  will-change: opacity;
+  transition: opacity 1s cubic-bezier(0.39, 0.575, 0.565, 1);
+`
+
+export const Image: React.FC<Props> = ({ lazy = true, source, alt, options, className }) => {
+  const [hasLoaded, setLoaded] = useState(false)
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0 })
+
+  const imgSrc = SanityImageUrl(sanityConfig)
+    .withOptions({ source, ...defaultImageOptions, ...options })
+    .url()!
+
+  let [width = 1, height = 1] = imgSrc
+    .split('-')[1]
+    .split('.')[0]
+    .split('x')
+    .map(Number)
+
+  // Override only when both values are present. If only one is defined,
+  // the aspect ratio wont change.
+  if (options?.width && options?.height) {
+    width = options.width
+    height = options.height
+  }
+
+  return (
+    <ImageContainer ref={ref} aspectRatio={(height / width) * 100} className={className}>
+      <StyledImage
+        alt={alt}
+        src={lazy ? (inView ? imgSrc : undefined) : imgSrc}
+        hasLoaded={lazy ? hasLoaded : true}
+        onLoad={() => lazy && setLoaded(true)}
+      />
+    </ImageContainer>
+  )
 }
