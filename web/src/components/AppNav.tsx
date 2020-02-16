@@ -10,6 +10,7 @@ const navLinks = [
 ]
 
 const Container = styled.nav`
+  background-color: ${({ theme }) => theme.colors.bg};
   position: fixed;
   top: 0;
   left: 0;

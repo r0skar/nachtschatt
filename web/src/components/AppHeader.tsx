@@ -26,11 +26,14 @@ const Grid = styled.div`
 `
 
 const MainTitle = styled.h1`
-  display: block;
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
 `
 
 const SubTitle = styled.h2`
-  display: block;
+  color: ${({ theme }) => theme.colors.subtle};
+  text-transform: uppercase;
   padding-left: 1ch;
 `
 

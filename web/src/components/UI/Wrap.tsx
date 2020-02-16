@@ -8,6 +8,7 @@ interface Props {
 export const Wrap = styled.div<Props>`
   height: ${({ fillHeight }) => fillHeight && '100%'};
   max-width: ${({ theme, breakpoint = 'xl' }) => `${theme.breakpoints[breakpoint]}px`};
-  margin-left: 'auto';
-  margin-right: 'auto';
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 `

@@ -12,8 +12,8 @@ export const theme: DefaultTheme = {
     subtle: '#eeeeee'
   },
   fonts: {
-    sans: 'sans',
-    serif: 'serif'
+    sans: 'Raleway',
+    serif: 'Raleway'
   },
   breakpoints: {
     xs: 540,
