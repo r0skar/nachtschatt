@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import { Image } from '../lib/sanity'
 import { useContent } from '../store/content'
-import { Wrap } from '../components/UI'
+import { Wrap, Image } from '../components/UI'
 
 const Grid = styled.ul`
   display: grid;
@@ -51,7 +50,7 @@ export const Category: React.FC = () => {
           {projects.map(p => (
             <li key={p.slug.current}>
               <ProjectContainer to={`/${categorySlug}/${p.slug.current}`}>
-                <ProjectImage src={p.cover} options={{ width: 300 }} />
+                <ProjectImage source={p.cover} options={{ width: 300 }} />
                 <ProjectTitle>{p.title}</ProjectTitle>
               </ProjectContainer>
             </li>

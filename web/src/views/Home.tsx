@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useContent } from '../store/content'
-import { Image } from '../lib/sanity'
+import { Image } from '../components/UI'
 
 const CoverImageContainer = styled.div`
   position: fixed;
@@ -25,7 +25,7 @@ export const Home: React.FC = () => {
 
   return (
     <CoverImageContainer>
-      <CoverImage src={content.config.coverImage} alt={content.config.title} options={{ width: 1200 }} />
+      <CoverImage source={content.config.coverImage} alt={content.config.title} options={{ width: 1200 }} />
     </CoverImageContainer>
   )
 }

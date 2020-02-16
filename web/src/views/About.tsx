@@ -1,9 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useContent } from '../store/content'
-import { Image, BlockContent } from '../lib/sanity'
 import { styledArticle } from '../design/mixins'
-import { Wrap } from '../components/UI'
+import { Wrap, Image, BlockContent } from '../components/UI'
 
 const Grid = styled.article`
   height: 100%;
@@ -45,7 +44,7 @@ export const About: React.FC = () => {
   return (
     <Wrap fillHeight>
       <Grid>
-        <CoverImage src={content.config.about.image} options={{ width: 600 }} />
+        <CoverImage source={content.config.about.image} options={{ width: 600 }} />
         <Content blocks={content.config.about.text} />
       </Grid>
     </Wrap>

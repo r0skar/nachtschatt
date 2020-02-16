@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
-import { Sanity, client } from '../lib/sanity'
+import PicoSanity, * as Sanity from 'picosanity'
+import { sanityConfig } from '../config'
 
 export enum Status {
   FETCHING = 'fetching',
@@ -49,6 +50,7 @@ interface State {
   content: Content
 }
 
+const sanityClient = new PicoSanity(sanityConfig)
 const Context = createContext({} as State)
 
 const query = `{
@@ -70,7 +72,7 @@ export const ContentProvider: React.FC = ({ children }) => {
       setStatus(Status.FETCHING)
 
       try {
-        const response = await client.fetch<Content>(query)
+        const response = await sanityClient.fetch<Content>(query)
         setContent(response)
         setStatus(Status.FETCHED)
       } catch (e) {
