@@ -7,7 +7,13 @@ import SanityBlockContent from '@sanity/block-content-to-react'
 interface ImageProps {
   src: Sanity.Asset
   alt?: string
+  className?: string
   options?: ImageUrlBuilderOptions
+}
+
+interface BlockContentProps {
+  blocks: Sanity.Block[]
+  className?: string
 }
 
 export { Sanity }
@@ -27,11 +33,11 @@ export const sanityConfig: Sanity.Config = {
 
 export const client = new PicoSanity(sanityConfig)
 
-export const BlockContent: React.FC<{ blocks: Sanity.Block[] }> = ({ blocks }) => {
-  return SanityBlockContent({ blocks, serializers: defaultBlockSerializers })
+export const BlockContent: React.FC<BlockContentProps> = ({ blocks, className }) => {
+  return SanityBlockContent({ blocks, serializers: defaultBlockSerializers, className })
 }
 
-export const Image: React.FC<ImageProps> = ({ src, alt, options }) => {
+export const Image: React.FC<ImageProps> = ({ src, alt, options, className }) => {
   const image = SanityImageUrl(sanityConfig).withOptions({ source: src, ...defaultImageOptions, ...options })
-  return <img src={image.url()!} alt={alt} />
+  return <img src={image.url()!} alt={alt} className={className} />
 }

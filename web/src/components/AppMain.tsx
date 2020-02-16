@@ -8,19 +8,31 @@ import { Category } from '../views/Category'
 import { NotFound } from '../views/NotFound'
 
 const Container = styled.main`
-  padding-top: ${({ theme }) => theme.appHeaderHeight};
-  padding-bottom: ${({ theme }) => theme.appHeaderHeight};
-  height: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+`
+
+const Spacer = styled.div`
+  height: ${({ theme }) => theme.appHeaderHeight};
+`
+
+const Main = styled.div`
+  flex: 1;
 `
 
 export const AppMain: React.FC = () => (
   <Container>
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/about" component={About} />
-      <Route exact path="/:categorySlug" component={Category} />
-      <Route exact path="/:categorySlug/:projectSlug" component={Project} />
-      <Route component={NotFound} />
-    </Switch>
+    <Spacer />
+    <Main>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/about" component={About} />
+        <Route exact path="/:categorySlug" component={Category} />
+        <Route exact path="/:categorySlug/:projectSlug" component={Project} />
+        <Route component={NotFound} />
+      </Switch>
+    </Main>
+    <Spacer />
   </Container>
 )

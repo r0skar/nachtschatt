@@ -2,19 +2,40 @@ import React from 'react'
 import styled from 'styled-components'
 import { useContent } from '../store/content'
 import { Image, BlockContent } from '../lib/sanity'
+import { styledArticle } from '../design/mixins'
 import { Wrap } from '../components/UI'
 
 const Grid = styled.article`
-  display: grid;
   height: 100%;
+  display: grid;
+  grid-column-gap: 10vw;
+  grid-row-gap: ${({ theme }) => theme.scale(4)};
+  grid-template-rows: max-content 1fr;
+  grid-template-columns: 1fr 60vmin;
+  grid-template-areas:
+    'image image'
+    'content content';
+
+  @media screen and (min-width: ${props => props.theme.breakpoints.md}px) {
+    align-items: center;
+    grid-template-areas:
+      'content image'
+      'content image';
+  }
 `
 
 const CoverImage = styled(Image)`
-  display: block;
+  grid-area: image;
+  width: 100%;
 `
 
 const Content = styled(BlockContent)`
-  display: block;
+  ${styledArticle()}
+  grid-area: content;
+
+  @media screen and (min-width: ${props => props.theme.breakpoints.md}px) {
+    max-width: 50ch;
+  }
 `
 
 export const About: React.FC = () => {
