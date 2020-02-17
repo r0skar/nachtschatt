@@ -36,7 +36,15 @@ interface Category extends Sanity.Document {
   title: string
   slug: Sanity.Slug
   description: string
-  projects: { title: string; slug: Sanity.Slug; cover: Sanity.Asset }[]
+  projects: {
+    row?: number
+    col?: number
+    project: {
+      title: string
+      slug: Sanity.Slug
+      cover: Sanity.Asset
+    }
+  }[]
 }
 
 interface Content {
@@ -55,7 +63,7 @@ const Context = createContext({} as State)
 
 const query = `{
   "config": *[_type == "config"][0]{ ..., "coverImage": coverImage->{ ...image } },
-  "categories": *[_type == "category"]{ ..., "projects": projects[]->{ title, slug, "cover": ^.works[0]->{ ...image } } },
+  "categories": *[_type == "category"]{ ..., "projects": projects[]{ row, col, "project": ^.project->{slug, title, "cover": ^.works[0]->{...image}} } },
   "projects": *[_type == "project"]{ ..., "works": works[]->{...} }
 }`
 

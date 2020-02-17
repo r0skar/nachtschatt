@@ -4,20 +4,39 @@ import styled from 'styled-components'
 import { useContent } from '../store/content'
 import { Wrap, Image } from '../components/UI'
 
+const GRID_COL_COUNT = 3
+const GRID_COL_GAP = '2rem'
+
 const Grid = styled.ul`
   display: grid;
-  grid-row-gap: ${({ theme }) => theme.scale(2)};
-  grid-column-gap: ${({ theme }) => theme.scale(2)};
-  grid-template-columns: repeat(3, 1fr);
+  grid-gap: ${GRID_COL_GAP};
+  grid-auto-flow: dense;
+  grid-auto-rows: minmax(200px, auto);
+  grid-template-columns: repeat(auto-fill, minmax(calc((100% / ${GRID_COL_COUNT}) - ${GRID_COL_GAP}), 1fr));
+`
+
+const GridItem = styled.li<{ row: number; col: number }>`
+  display: block;
+  grid-column-end: span ${GRID_COL_COUNT};
+  grid-row-end: span 1;
+
+  @media screen and (min-width: ${props => props.theme.breakpoints.sm}px) {
+    grid-column-end: ${({ col }) => `span ${col}`};
+    grid-row-end: ${({ row }) => `span ${row}`};
+  }
 `
 
 const ProjectContainer = styled(Link)`
   display: block;
   position: relative;
+  height: 100%;
+  width: 100%;
 `
 
 const ProjectImage = styled(Image)`
   display: block;
+  height: 100%;
+  width: 100%;
 `
 
 const ProjectTitle = styled.h2`
@@ -47,13 +66,13 @@ export const Category: React.FC = () => {
         <p>No projects.</p>
       ) : (
         <Grid>
-          {projects.map(p => (
-            <li key={p.slug.current}>
-              <ProjectContainer to={`/${categorySlug}/${p.slug.current}`}>
-                <ProjectImage source={p.cover} options={{ width: 300 }} />
-                <ProjectTitle>{p.title}</ProjectTitle>
+          {projects.map(({ project, row = 1, col = GRID_COL_COUNT }) => (
+            <GridItem key={project.slug.current} row={row} col={col}>
+              <ProjectContainer to={`/${categorySlug}/${project.slug.current}`}>
+                <ProjectImage source={project.cover} options={{ width: 1600 }} />
+                <ProjectTitle>{project.title}</ProjectTitle>
               </ProjectContainer>
-            </li>
+            </GridItem>
           ))}
         </Grid>
       )}

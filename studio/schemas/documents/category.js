@@ -30,16 +30,50 @@ export default {
       name: 'projects',
       type: 'array',
       title: 'Projects',
-      of: [ {
-        type: 'reference',
-        to: [ { type: 'project' } ]
-      } ]
+      validation: Rule => Rule.unique(),
+      of: [
+        {
+          type: 'object',
+          preview: {
+            select: {
+              title: 'project.works.0.title',
+              row: 'row',
+              col: 'col',
+              media: 'project.works.0.image'
+            },
+            prepare({ title, media, row = 1, col = 3 }) {
+              return { title: `${title} (${col}/${row})`, media }
+            }
+          },
+          fields: [
+            {
+              name: 'project',
+              type: 'reference',
+              title: 'Project',
+              validation: Rule => Rule.required(),
+              to: [{ type: 'project' }]
+            },
+            {
+              name: 'col',
+              type: 'number',
+              title: 'Column span',
+              validation: Rule => Rule.min(1).max(3)
+            },
+            {
+              name: 'row',
+              type: 'number',
+              title: 'Row span',
+              validation: Rule => Rule.min(1).max(3)
+            }
+          ]
+        }
+      ]
     }
   ],
   preview: {
     select: {
       title: 'title',
-      media: 'projects.0.works.0.image'
+      media: 'projects.0.project.works.0.image'
     },
     prepare({ title, media }) {
       return { title, media }
