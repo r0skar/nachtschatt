@@ -16,7 +16,7 @@ const Grid = styled.article`
     'content content';
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}px) {
-    grid-template-columns: minmax(min-content, 45ch) minmax(50%, 1fr);
+    grid-template-columns: minmax(min-content, 30ch) minmax(50%, 1fr);
     grid-column-gap: 10vw;
     align-items: center;
     grid-template-areas:

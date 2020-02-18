@@ -35,8 +35,6 @@ const ProjectContainer = styled(Link)`
 
 const ProjectImage = styled(Image)`
   display: block;
-  height: 100%;
-  width: 100%;
 `
 
 const ProjectTitle = styled.h2`
@@ -70,7 +68,7 @@ export const Category: React.FC = () => {
         {projects.map(({ project, row = 1, col = GRID_COL_COUNT }) => (
           <GridItem key={project.slug.current} row={row} col={col}>
             <ProjectContainer to={`/${categorySlug}/${project.slug.current}`}>
-              <ProjectImage source={project.cover} options={{ width: 1600 }} />
+              <ProjectImage source={project.cover} options={{ width: 1600 }} fillWidth={true} fillHeight={true} />
               <ProjectTitle>{project.title}</ProjectTitle>
             </ProjectContainer>
           </GridItem>

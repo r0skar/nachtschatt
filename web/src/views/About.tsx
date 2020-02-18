@@ -39,7 +39,7 @@ export const About: React.FC = () => {
   return (
     <Wrap fillHeight>
       <Grid>
-        <CoverImage source={content.config.about.image} options={{ width: 600 }} />
+        <CoverImage source={content.config.about.image} options={{ width: 600 }} fillWidth={true} />
         <Content blocks={content.config.about.text} />
       </Grid>
     </Wrap>

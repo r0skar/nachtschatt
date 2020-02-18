@@ -27,9 +27,11 @@ export const Home: React.FC = () => {
     <CoverImageContainer>
       <CoverImage
         source={content.config.coverImage}
-        options={{ width: 1200 }}
         alt={content.config.title}
+        options={{ width: 1200 }}
         lazy={false}
+        fillHeight={true}
+        fillWidth={true}
       />
     </CoverImageContainer>
   )

@@ -17,7 +17,6 @@ const Container = styled.div`
 `
 
 const Slider = styled.div`
-  cursor: grab;
   position: absolute;
   overflow: hidden;
   top: 0;
@@ -34,15 +33,11 @@ const Slider = styled.div`
   & .swiper-wrapper {
     height: 100%;
   }
-
-  &:active {
-    cursor: grabbing;
-  }
 `
 
 const Slide = styled.div`
   height: 100%;
-  width: 100%;
+  width: auto !important;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -77,6 +72,9 @@ export const WorkSlider: React.FC<Props> = ({ works }) => {
   const swiper = useRef<ISwiper>()
 
   const swiperOptions = {
+    freeMode: true,
+    grabCursor: true,
+    preloadImages: false,
     slidesPerView: 'auto',
     spaceBetween: 25
   } as const
@@ -95,7 +93,7 @@ export const WorkSlider: React.FC<Props> = ({ works }) => {
         <Swiper {...swiperOptions} getSwiper={sw => (swiper.current = sw as ISwiper)}>
           {works.map(work => (
             <Slide key={work._id}>
-              <Image source={work.image} alt={work.title} />
+              <Image source={work.image} alt={work.title} fillHeight={true} />
             </Slide>
           ))}
         </Swiper>
