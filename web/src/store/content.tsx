@@ -8,7 +8,7 @@ export enum Status {
   FAILED = 'failed'
 }
 
-interface Config extends Sanity.Document {
+export interface Config extends Sanity.Document {
   title: string
   description: string
   coverImage: Sanity.Asset
@@ -19,20 +19,20 @@ interface Config extends Sanity.Document {
   }
 }
 
-interface Work extends Sanity.Document {
+export interface Work extends Sanity.Document {
   title: string
   description: string
   image: Sanity.Asset
 }
 
-interface Project extends Sanity.Document {
+export interface Project extends Sanity.Document {
   title: string
   slug: Sanity.Slug
   description: Sanity.Block[]
   works: Work[]
 }
 
-interface Category extends Sanity.Document {
+export interface Category extends Sanity.Document {
   title: string
   slug: Sanity.Slug
   description: string
@@ -47,7 +47,7 @@ interface Category extends Sanity.Document {
   }[]
 }
 
-interface Content {
+export interface Content {
   config: Config
   projects: Project[]
   categories: Category[]

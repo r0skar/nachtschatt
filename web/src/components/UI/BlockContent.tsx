@@ -10,5 +10,10 @@ interface Props {
 const defaultBlockSerializers = {}
 
 export const BlockContent: React.FC<Props> = ({ blocks, className }) => {
-  return SanityBlockContent({ blocks, serializers: defaultBlockSerializers, className })
+  return SanityBlockContent({
+    renderContainerOnSingleChild: true,
+    serializers: defaultBlockSerializers,
+    blocks,
+    className
+  })
 }

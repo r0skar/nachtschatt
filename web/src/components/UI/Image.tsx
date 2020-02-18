@@ -10,6 +10,7 @@ interface Props {
   alt?: string
   lazy?: boolean
   className?: string
+  fillParent?: boolean
   source: Sanity.Asset
   options?: ImageUrlBuilderOptions
 }
@@ -19,9 +20,11 @@ const defaultImageOptions: ImageUrlBuilderOptions = {
   fit: 'max'
 }
 
-const ImageContainer = styled.figure<{ aspectRatio: number }>`
+const ImageContainer = styled.figure<{ aspectRatio: number; fillParent?: boolean }>`
   display: block;
-  padding-bottom: ${({ aspectRatio }) => `${aspectRatio}%`};
+  height: ${({ fillParent }) => fillParent && '100%'};
+  width: ${({ fillParent }) => fillParent && '100%'};
+  padding-bottom: ${({ fillParent, aspectRatio }) => !fillParent && `${aspectRatio}%`};
   position: relative;
   overflow: hidden;
 `
@@ -37,7 +40,7 @@ const StyledImage = styled.img<{ hasLoaded: boolean }>`
   transition: opacity 1s cubic-bezier(0.39, 0.575, 0.565, 1);
 `
 
-export const Image: React.FC<Props> = ({ lazy = true, source, alt, options, className }) => {
+export const Image: React.FC<Props> = ({ lazy = true, source, alt, options, fillParent, className }) => {
   const [hasLoaded, setLoaded] = useState(false)
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0 })
 
@@ -59,12 +62,12 @@ export const Image: React.FC<Props> = ({ lazy = true, source, alt, options, clas
   }
 
   return (
-    <ImageContainer ref={ref} aspectRatio={(height / width) * 100} className={className}>
+    <ImageContainer ref={ref} aspectRatio={(height / width) * 100} fillParent={fillParent} className={className}>
       <StyledImage
         alt={alt}
         src={lazy ? (inView ? imgSrc : undefined) : imgSrc}
-        hasLoaded={lazy ? hasLoaded : true}
         onLoad={() => lazy && setLoaded(true)}
+        hasLoaded={lazy ? hasLoaded : true}
       />
     </ImageContainer>
   )
