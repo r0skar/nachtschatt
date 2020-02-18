@@ -42,7 +42,7 @@ export const AppNav: React.FC = () => (
     <Wrap>
       <NavList>
         {primaryNav.map(li => (
-          <li key={li.to}>
+          <li key={li.name}>
             {li.to ? (
               <Link to={li.to}>
                 <NavHeader primary>{li.name}</NavHeader>

@@ -18,7 +18,7 @@ const Grid = styled.article`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}px) {
     grid-template-columns: minmax(min-content, 30ch) minmax(50%, 1fr);
     grid-column-gap: 10vw;
-    align-items: center;
+    align-items: flex-start;
     grid-template-areas:
       'content gallery'
       'content gallery';

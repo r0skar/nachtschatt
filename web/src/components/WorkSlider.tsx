@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import ISwiper from 'swiper'
 import Swiper from 'react-id-swiper'
 import styled from 'styled-components'
@@ -86,6 +86,15 @@ export const WorkSlider: React.FC<Props> = ({ works }) => {
   const goPrev = () => {
     swiper.current!.slidePrev()
   }
+
+  // TODO: switch to gsap scrollable
+  useEffect(() => {
+    setTimeout(() => {
+      swiper.current!.update()
+    }, 1000)
+
+    return () => swiper.current!.destroy(true, true)
+  })
 
   return (
     <Container>
