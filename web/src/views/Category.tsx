@@ -60,22 +60,22 @@ export const Category: React.FC = () => {
     return content.categories.find(c => c.slug.current === categorySlug)?.projects
   }, [categorySlug, content.categories])
 
+  if (!projects) {
+    return <Wrap>No projects available.</Wrap>
+  }
+
   return (
     <Wrap>
-      {!projects ? (
-        <p>No projects.</p>
-      ) : (
-        <Grid>
-          {projects.map(({ project, row = 1, col = GRID_COL_COUNT }) => (
-            <GridItem key={project.slug.current} row={row} col={col}>
-              <ProjectContainer to={`/${categorySlug}/${project.slug.current}`}>
-                <ProjectImage source={project.cover} options={{ width: 1600 }} />
-                <ProjectTitle>{project.title}</ProjectTitle>
-              </ProjectContainer>
-            </GridItem>
-          ))}
-        </Grid>
-      )}
+      <Grid>
+        {projects.map(({ project, row = 1, col = GRID_COL_COUNT }) => (
+          <GridItem key={project.slug.current} row={row} col={col}>
+            <ProjectContainer to={`/${categorySlug}/${project.slug.current}`}>
+              <ProjectImage source={project.cover} options={{ width: 1600 }} />
+              <ProjectTitle>{project.title}</ProjectTitle>
+            </ProjectContainer>
+          </GridItem>
+        ))}
+      </Grid>
     </Wrap>
   )
 }

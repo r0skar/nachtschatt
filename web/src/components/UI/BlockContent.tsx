@@ -3,8 +3,8 @@ import * as Sanity from 'picosanity'
 import SanityBlockContent from '@sanity/block-content-to-react'
 
 interface Props {
-  blocks: Sanity.Block[]
   className?: string
+  blocks: Sanity.Block[]
 }
 
 const defaultBlockSerializers = {}

@@ -9,7 +9,9 @@ export const Wrap = styled.div<Props>`
   height: ${({ fillHeight }) => fillHeight && '100%'};
   height: ${({ fillHeight }) => fillHeight && '-webkit-fill-available'};
   max-width: ${({ theme, breakpoint = 'xl' }) => `${theme.breakpoints[breakpoint]}px`};
-  width: 90%;
+  padding-left: ${({ theme }) => theme.wrapSpacing};
+  padding-right: ${({ theme }) => theme.wrapSpacing};
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 `

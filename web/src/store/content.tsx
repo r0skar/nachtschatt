@@ -28,7 +28,7 @@ interface Work extends Sanity.Document {
 interface Project extends Sanity.Document {
   title: string
   slug: Sanity.Slug
-  description: string
+  description: Sanity.Block[]
   works: Work[]
 }
 

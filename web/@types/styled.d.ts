@@ -8,6 +8,7 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     baseline: number
     baseTextSize: string
+    wrapSpacing: string
     appHeaderHeight: string
     scale: (n: number) => string
     colors: Record<Colors, string>

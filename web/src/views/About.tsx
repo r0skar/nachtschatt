@@ -7,15 +7,15 @@ import { Wrap, Image, BlockContent } from '../components/UI'
 const Grid = styled.article`
   height: 100%;
   display: grid;
-  grid-column-gap: 10vw;
   grid-row-gap: ${({ theme }) => theme.scale(4)};
   grid-template-rows: max-content 1fr;
-  grid-template-columns: 1fr min-content;
   grid-template-areas:
     'image image'
     'content content';
 
-  @media screen and (min-width: ${props => props.theme.breakpoints.md}px) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}px) {
+    grid-template-columns: minmax(min-content, 45ch) minmax(50%, 1fr);
+    grid-column-gap: 10vw;
     align-items: center;
     grid-template-areas:
       'content image'
@@ -25,17 +25,12 @@ const Grid = styled.article`
 
 const CoverImage = styled(Image)`
   grid-area: image;
-  min-width: 60vmin;
   width: 100%;
 `
 
 const Content = styled(BlockContent)`
   ${styledArticle()}
   grid-area: content;
-
-  @media screen and (min-width: ${props => props.theme.breakpoints.md}px) {
-    max-width: 50ch;
-  }
 `
 
 export const About: React.FC = () => {

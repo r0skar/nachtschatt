@@ -21,10 +21,9 @@ export default {
     },
     {
       name: 'description',
-      type: 'text',
+      type: 'blockContent',
       title: 'Description',
-      rows: 5,
-      validation: Rule => Rule.required().max(250)
+      validation: Rule => Rule.required()
     },
     {
       name: 'works',
