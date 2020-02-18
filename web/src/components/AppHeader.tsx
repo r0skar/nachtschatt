@@ -15,7 +15,7 @@ const Container = styled.header<{ hasSolidBg: boolean }>`
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 2;
+  z-index: 99;
 `
 
 const Grid = styled.div`

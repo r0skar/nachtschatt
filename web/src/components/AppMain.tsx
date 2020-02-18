@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Switch, Route } from 'react-router-dom'
 import { Home } from '../views/Home'
 import { About } from '../views/About'
+import { Contact } from '../views/Contact'
 import { Project } from '../views/Project'
 import { Category } from '../views/Category'
 import { NotFound } from '../views/NotFound'
@@ -28,8 +29,9 @@ export const AppMain: React.FC = () => (
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/about" component={About} />
-        <Route exact path="/:categorySlug" component={Category} />
-        <Route exact path="/:categorySlug/:projectSlug" component={Project} />
+        <Route exact path="/contact" component={Contact} />
+        <Route exact path="/work/:categorySlug" component={Category} />
+        <Route exact path="/work/:categorySlug/:projectSlug" component={Project} />
         <Route component={NotFound} />
       </Switch>
     </Main>

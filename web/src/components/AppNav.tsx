@@ -1,13 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-
-const navLinks = [
-  { name: 'Home', path: '/' },
-  { name: 'About', path: '/about' },
-  { name: 'Category', path: '/category' },
-  { name: 'Project', path: '/project' }
-]
+import { Wrap } from './UI'
+import { primaryNav } from '../config'
 
 const Container = styled.nav`
   background-color: ${({ theme }) => theme.colors.bg};
@@ -16,34 +11,59 @@ const Container = styled.nav`
   left: 0;
   height: 100%;
   width: 100%;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  z-index: 9;
 `
 
 const NavList = styled.ul`
+  display: grid;
+  justify-content: flex-start;
+  grid-row-gap: ${({ theme }) => theme.scale(0.5)};
   padding-top: ${({ theme }) => theme.appHeaderHeight};
   padding-bottom: ${({ theme }) => theme.appHeaderHeight};
 `
 
-const NavListItem = styled.li`
-  text-align: center;
+const NavHeader = styled.span<{ primary?: boolean }>`
+  display: inline-block;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: ${({ primary }) => (primary ? '2rem' : '1.5rem')};
+  font-weight: ${({ primary }) => primary && 900};
 `
 
-const NavLink = styled(Link)`
-  font-weight: 900;
-  text-transform: uppercase;
+const SubNav = styled.ul`
+  display: inline-grid;
+  padding-left: 2rem;
+  grid-row-gap: ${({ theme }) => theme.scale(0.25)};
 `
 
 export const AppNav: React.FC = () => (
   <Container>
-    <NavList>
-      {navLinks.map(li => (
-        <NavListItem key={li.path}>
-          <NavLink to={li.path}>{li.name}</NavLink>
-        </NavListItem>
-      ))}
-    </NavList>
+    <Wrap>
+      <NavList>
+        {primaryNav.map(li => (
+          <li key={li.to}>
+            {li.to ? (
+              <Link to={li.to}>
+                <NavHeader primary>{li.name}</NavHeader>
+              </Link>
+            ) : (
+              <>
+                <NavHeader primary>{li.name}</NavHeader>
+                <SubNav>
+                  {li.children?.map(child => (
+                    <li key={child.name}>
+                      <Link to={child.to}>
+                        <NavHeader>{child.name}</NavHeader>
+                      </Link>
+                    </li>
+                  ))}
+                </SubNav>
+              </>
+            )}
+          </li>
+        ))}
+      </NavList>
+    </Wrap>
   </Container>
 )
