@@ -24,8 +24,10 @@ const defaultImageOptions: ImageUrlBuilderOptions = {
 }
 
 const ImageContainer = styled.figure<{ fillHeight?: boolean; fillWidth?: boolean }>`
-  height: ${({ fillHeight }) => (fillHeight ? '100%' : 'auto')};
-  width: 100%;
+  height: ${({ fillHeight, fillWidth }) => fillHeight && fillWidth && '100%'};
+  width: ${({ fillHeight, fillWidth }) => fillHeight && fillWidth && '100%'};
+  min-height: ${({ fillHeight }) => fillHeight && '100%'};
+  min-width: ${({ fillWidth }) => fillWidth && '100%'};
   display: block;
   position: relative;
   overflow: hidden;

@@ -1,12 +1,10 @@
 /* eslint-disable import/no-webpack-loader-syntax */
 import { createGlobalStyle } from 'styled-components'
-import swiper from '!!raw-loader!swiper/css/swiper.css'
 import destyle from '!!raw-loader!@r0skar/destyle.css/destyle.css'
 import { styledScrollbar } from './mixins'
 
 export const GlobalStyle = createGlobalStyle`
   ${destyle}
-  ${swiper}
 
   *::selection {
     background-color: ${({ theme }) => theme.colors.primary};
