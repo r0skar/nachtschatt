@@ -24,18 +24,16 @@ const defaultImageOptions: ImageUrlBuilderOptions = {
 }
 
 const ImageContainer = styled.figure<{ fillHeight?: boolean; fillWidth?: boolean }>`
-  height: ${({ fillHeight, fillWidth }) => fillHeight && fillWidth && '100%'};
-  width: ${({ fillHeight, fillWidth }) => fillHeight && fillWidth && '100%'};
-  min-height: ${({ fillHeight }) => fillHeight && '100%'};
-  min-width: ${({ fillWidth }) => fillWidth && '100%'};
+  height: ${({ fillHeight }) => (fillHeight ? '100%' : 'auto')};
+  width: ${({ fillWidth }) => (fillWidth ? '100%' : 'auto')};
   display: block;
   position: relative;
   overflow: hidden;
 `
 
-const Placeholder = styled(Spinner)<{ fillHeight?: boolean; fillWidth?: boolean }>`
-  height: ${({ fillHeight }) => (fillHeight ? '100%' : 'auto')};
-  width: ${({ fillWidth }) => (fillWidth ? '100%' : 'auto')};
+const Placeholder = styled(Spinner)`
+  height: inherit;
+  width: inherit;
   backface-visibility: hidden;
   display: block;
   pointer-events: none;
@@ -58,8 +56,9 @@ const StyledImage = styled.img<{ hasLoaded: boolean }>`
 `
 
 export const Image: React.FC<Props> = props => {
-  const { lazy = true, imageLoaded, source, alt, options, fillWidth, fillHeight, className } = props
+  const { lazy = true, imageLoaded: callback, source, alt, options, fillWidth, fillHeight, className } = props
   const [$container, inView] = useInView({ triggerOnce: true, threshold: 0 })
+  const $placeholder = useRef<SVGSVGElement>(null)
   const $image = useRef<HTMLImageElement>(null)
   const [hasLoaded, setLoaded] = useState(false)
 
@@ -67,24 +66,32 @@ export const Image: React.FC<Props> = props => {
     .withOptions({ source, ...defaultImageOptions, ...options })
     .url()!
 
-  let [width = 1, height = 1] = imgSrc
+  let [oriWidth = 1, oriHeight = 1] = imgSrc
     .split('-')[1]
     .split('.')[0]
     .split('x')
     .map(Number)
 
   if (options?.width && options?.height) {
-    width = options.width
-    height = options.height
+    oriWidth = options.width
+    oriHeight = options.height
   }
 
   useEffect(() => {
-    if (hasLoaded && imageLoaded) imageLoaded($image.current!)
-  }, [hasLoaded, imageLoaded])
+    if (hasLoaded && callback) callback($image.current!)
+  }, [hasLoaded, callback])
+
+  useEffect(() => {
+    if (!lazy) return
+
+    const { width, height } = $placeholder.current!.getBoundingClientRect()
+    $image.current!.style.width = `${width}px`
+    $image.current!.style.height = `${height}px`
+  }, [lazy])
 
   return (
     <ImageContainer ref={$container} className={className} fillHeight={fillHeight} fillWidth={fillWidth}>
-      <Placeholder fillHeight={fillHeight} fillWidth={fillWidth} width={width} height={height} />
+      {lazy && <Placeholder ref={$placeholder} width={oriWidth} height={oriHeight} />}
       <StyledImage
         ref={$image}
         alt={alt}

@@ -39,6 +39,7 @@ const Slider = styled(motion.div)`
 const Slide = styled.div`
   display: flex;
   height: 100%;
+  width: auto;
 
   &:not(:last-child) {
     margin-right: ${SLIDES_GAP};
