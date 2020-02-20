@@ -25,6 +25,7 @@ const Wrapper = styled.div`
 `
 
 const Slider = styled(motion.div)`
+  cursor: grab;
   position: absolute;
   top: 0;
   left: 0;
@@ -34,6 +35,10 @@ const Slider = styled(motion.div)`
   flex-wrap: nowrap;
   backface-visibility: hidden;
   will-change: transform;
+
+  &:active {
+    cursor: grabbing;
+  }
 `
 
 const Slide = styled.div`

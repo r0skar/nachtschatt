@@ -20,7 +20,7 @@ export const theme: DefaultTheme = {
     xs: 540,
     sm: 760,
     md: 1024,
-    lg: 1200,
-    xl: 1600
+    lg: 1400,
+    xl: 1920
   }
 }
