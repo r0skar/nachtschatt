@@ -22,7 +22,7 @@ const imageVariants = {
 }
 
 const titleVariants = {
-  hover: { y: '1rem' }
+  hover: { y: -10 }
 }
 
 const lazyImageVariants = {
@@ -65,8 +65,8 @@ const ProjectLink = styled(Link)`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
+  align-items: flex-end;
 `
 
 const ImageContainer = styled(motion.div)`
@@ -85,6 +85,7 @@ const ProjectTitle = styled(motion.h2)`
   text-align: center;
   z-index: 1;
   will-change: transform;
+  text-transform: uppercase;
 `
 
 export const Category: React.FC = () => {
