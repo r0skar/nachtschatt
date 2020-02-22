@@ -12,9 +12,19 @@ interface Props {
 const NAV_HEIGHT = '2rem'
 const SLIDES_GAP = '20px'
 
+const navTransition = {
+  duration: 2,
+  ease: [0.43, 0.13, 0.23, 0.96]
+}
+
 const lazyImageVariants = {
   initial: { opacity: 0, x: '-10%' },
   enter: { opacity: 1, x: 0 }
+}
+
+const navVariants = {
+  initial: { opacity: 0, y: '100%' },
+  enter: { opacity: 1, y: 0 }
 }
 
 const Container = styled.div`
@@ -54,7 +64,7 @@ const Slide = styled.div`
   }
 `
 
-const Navigation = styled.nav`
+const Navigation = styled(motion.nav)`
   position: absolute;
   bottom: 0;
   left: 0;
@@ -125,7 +135,7 @@ export const WorkSlider: React.FC<Props> = ({ works }) => {
           ))}
         </Slider>
       </Wrapper>
-      <Navigation>
+      <Navigation initial="initial" animate="enter" variants={navVariants} transition={navTransition}>
         <NavButton onClick={() => paginate(-1)}>
           <svg viewBox="0 0 15.8 6.8">
             <polygon points="11.6,0 10.9,0.8 13.6,2.9 0,2.9 0,3.9 13.6,3.9 10.9,6 11.6,6.8 15.8,3.4 " />
