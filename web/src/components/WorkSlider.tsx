@@ -12,6 +12,11 @@ interface Props {
 const NAV_HEIGHT = '2rem'
 const SLIDES_GAP = '20px'
 
+const lazyImageVariants = {
+  initial: { opacity: 0, x: '-10%' },
+  enter: { opacity: 1, x: 0 }
+}
+
 const Container = styled.div`
   height: 100%;
   width: 100%;
@@ -117,7 +122,7 @@ export const WorkSlider: React.FC<Props> = ({ works }) => {
         <Slider ref={$slider} drag="x" animate={controls} dragConstraints={{ left: dragWidth * -1, right: 0 }}>
           {works.map(work => (
             <Slide key={work._id}>
-              <Image source={work.image} alt={work.title} fillHeight={true} />
+              <Image source={work.image} alt={work.title} fillHeight={true} variants={lazyImageVariants} />
             </Slide>
           ))}
         </Slider>
