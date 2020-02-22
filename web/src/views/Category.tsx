@@ -1,18 +1,41 @@
 import React, { useMemo } from 'react'
-import { Link, useParams } from 'react-router-dom'
 import styled from 'styled-components'
+import { motion } from 'framer-motion'
+import { Link, useParams } from 'react-router-dom'
 import { useContent } from '../store/content'
 import { Wrap, Image } from '../components/UI'
 
+const GRID_GAP = '1rem'
 const GRID_COL_COUNT = 3
-const GRID_COL_GAP = '2rem'
+
+const transition = {
+  duration: 0.3,
+  ease: [0.43, 0.13, 0.23, 0.96]
+}
+
+const containerVariants = {
+  hover: { scale: 0.95 }
+}
+
+const imageVariants = {
+  hover: { scale: 1.15 }
+}
+
+const titleVariants = {
+  hover: { y: '1rem' }
+}
+
+const lazyImageVariants = {
+  initial: { opacity: 0, y: '100%' },
+  enter: { opacity: 1, y: 0 }
+}
 
 const Grid = styled.ul`
   display: grid;
-  grid-gap: ${GRID_COL_GAP};
+  grid-gap: ${GRID_GAP};
   grid-auto-flow: dense;
   grid-auto-rows: minmax(200px, auto);
-  grid-template-columns: repeat(auto-fill, minmax(calc((100% / ${GRID_COL_COUNT}) - ${GRID_COL_GAP}), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(calc((100% / ${GRID_COL_COUNT}) - ${GRID_GAP}), 1fr));
 `
 
 const GridItem = styled.li<{ row: number; col: number }>`
@@ -26,28 +49,42 @@ const GridItem = styled.li<{ row: number; col: number }>`
   }
 `
 
-const ProjectContainer = styled(Link)`
+const ProjectContainer = styled(motion.div)`
+  display: block;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  will-change: transform;
+`
+
+const ProjectLink = styled(Link)`
   display: block;
   position: relative;
   height: 100%;
   width: 100%;
-`
-
-const ProjectImage = styled(Image)`
-  display: block;
-`
-
-const ProjectTitle = styled.h2`
-  color: ${({ theme }) => theme.colors.bg};
-  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  text-align: center;
-  bottom: 0;
-  left: 0;
+  align-items: center;
+`
+
+const ImageContainer = styled(motion.div)`
+  display: block;
+  position: relative;
   height: 100%;
   width: 100%;
+  will-change: transform;
+`
+
+const ProjectTitle = styled(motion.h2)`
+  color: ${({ theme }) => theme.colors.bg};
+  font-size: 1.25rem;
+  padding: 1rem;
+  position: absolute;
+  text-align: center;
+  z-index: 1;
+  will-change: transform;
 `
 
 export const Category: React.FC = () => {
@@ -67,9 +104,21 @@ export const Category: React.FC = () => {
       <Grid>
         {projects.map(({ project, row = 1, col = GRID_COL_COUNT }) => (
           <GridItem key={project.slug.current} row={row} col={col}>
-            <ProjectContainer to={`/work/${categorySlug}/${project.slug.current}`}>
-              <ProjectImage source={project.cover} options={{ width: 1600 }} fillWidth={true} fillHeight={true} />
-              <ProjectTitle>{project.title}</ProjectTitle>
+            <ProjectContainer whileHover="hover" variants={containerVariants} transition={transition}>
+              <ProjectLink to={`/work/${categorySlug}/${project.slug.current}`}>
+                <ImageContainer variants={imageVariants} transition={transition}>
+                  <Image
+                    fillWidth={true}
+                    fillHeight={true}
+                    source={project.cover}
+                    options={{ width: 1600 }}
+                    variants={lazyImageVariants}
+                  />
+                </ImageContainer>
+                <ProjectTitle variants={titleVariants} transition={transition}>
+                  {project.title}
+                </ProjectTitle>
+              </ProjectLink>
             </ProjectContainer>
           </GridItem>
         ))}
