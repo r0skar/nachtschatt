@@ -30,8 +30,11 @@ const navVariants = {
 const Container = styled.div`
   height: 100%;
   width: 100%;
-  position: relative;
-  overflow: hidden;
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.md}px) {
+    position: relative;
+    overflow: hidden;
+  }
 `
 
 const Wrapper = styled.div`
