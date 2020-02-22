@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useContent } from '../store/content'
 import { Link, useLocation } from 'react-router-dom'
 import { Wrap } from './UI'
 
@@ -51,6 +52,7 @@ const NavButton = styled.button`
 `
 
 export const AppHeader: React.FC<Props> = ({ toggleNav, hasSolidBg }) => {
+  const { content } = useContent()
   const { pathname } = useLocation()
   const [, p1, p2] = pathname.split('/')
   const pageTitle = p2 || p1 || ''
@@ -60,7 +62,7 @@ export const AppHeader: React.FC<Props> = ({ toggleNav, hasSolidBg }) => {
       <Wrap fillHeight>
         <Grid>
           <MainTitle>
-            <Link to="/">Site Title</Link>
+            <Link to="/">{content.config.title}</Link>
           </MainTitle>
           <SubTitle>{pageTitle}</SubTitle>
           <NavButton onClick={toggleNav}>

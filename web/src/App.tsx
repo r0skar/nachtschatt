@@ -18,10 +18,14 @@ export const App: React.FC = () => {
 
   return (
     <>
-      <AppHeader toggleNav={toggleNav} hasSolidBg={hasSolidBg} />
-      {withNav && <AppNav />}
-      {status === Status.FETCHED && <AppMain />}
       {status === Status.FAILED && <p>Be right back!</p>}
+      {status === Status.FETCHED && (
+        <>
+          {withNav && <AppNav />}
+          <AppHeader toggleNav={toggleNav} hasSolidBg={hasSolidBg} />
+          <AppMain />
+        </>
+      )}
     </>
   )
 }
