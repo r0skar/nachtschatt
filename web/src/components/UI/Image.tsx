@@ -104,8 +104,8 @@ export const Image: React.FC<Props> = props => {
   useEffect(() => {
     if (!lazy) return
     const { width, height } = $placeholder.current!.getBoundingClientRect()
-    $image.current!.style.width = `${width}px`
-    $image.current!.style.height = `${height}px`
+    $image.current!.parentElement!.style.width = `${width}px`
+    $image.current!.parentElement!.style.height = `${height}px`
   }, [lazy])
 
   return (

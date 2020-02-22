@@ -5,6 +5,11 @@ import { useContent } from '../store/content'
 import { WorkSlider } from '../components/WorkSlider'
 import { Wrap, BlockContent } from '../components/UI'
 
+const articleVariants = {
+  initial: { opacity: 0, x: '10%' },
+  enter: { opacity: 1, x: 0 }
+}
+
 const Grid = styled.article`
   height: 100%;
   display: grid;
@@ -59,7 +64,7 @@ export const Project: React.FC = () => {
         <Gallery>
           {project.works?.length > 0 ? <WorkSlider works={project.works} /> : <p>No works available.</p>}
         </Gallery>
-        <Content blocks={project.description} />
+        <Content blocks={project.description} variants={articleVariants} />
       </Grid>
     </Wrap>
   )
