@@ -23,6 +23,8 @@ export const GlobalStyle = createGlobalStyle`
     font-size: ${({ theme }) => theme.baseTextSize};
     line-height: ${({ theme }) => theme.baseline};
     overflow-y: scroll;
+    touch-action: none;
+    text-size-adjust: none;
   }
 
   body {
