@@ -53,7 +53,7 @@ const Placeholder = styled.svg`
   z-index: -1;
 `
 
-const StyledImage = styled(motion.img)`
+const LazyImage = styled(motion.img)`
   display: block;
   position: absolute;
   height: 100%;
@@ -109,19 +109,23 @@ export const Image: React.FC<Props> = props => {
 
   return (
     <ImageContainer ref={$container} className={className} fillHeight={fillHeight} fillWidth={fillWidth}>
-      {lazy && (
-        <Placeholder viewBox="0 0 100 100" ref={$placeholder} className={className} width={width} height={height} />
+      {lazy ? (
+        <>
+          <Placeholder viewBox="0 0 100 100" ref={$placeholder} className={className} width={width} height={height} />
+          <LazyImage
+            ref={$image}
+            alt={alt}
+            src={inView ? imgSrc : undefined}
+            onLoad={() => callback && callback($image.current!)}
+            initial="initial"
+            animate={inView ? 'enter' : undefined}
+            variants={variants}
+            transition={transition}
+          />
+        </>
+      ) : (
+        <img ref={$image} src={imgSrc} alt={alt} />
       )}
-      <StyledImage
-        ref={$image}
-        alt={alt}
-        src={lazy ? (inView ? imgSrc : undefined) : imgSrc}
-        onLoad={() => callback && callback($image.current!)}
-        initial={lazy ? 'initial' : undefined}
-        animate={lazy && inView ? 'enter' : undefined}
-        variants={variants}
-        transition={transition}
-      />
     </ImageContainer>
   )
 }
