@@ -9,7 +9,7 @@ import { Category } from '../views/Category'
 import { NotFound } from '../views/NotFound'
 
 const Container = styled.main`
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
 `

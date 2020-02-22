@@ -7,6 +7,7 @@ interface Props {
 
 export const Wrap = styled.div<Props>`
   height: ${({ fillHeight }) => fillHeight && '100%'};
+  height: ${({ fillHeight }) => fillHeight && '-webkit-fill-available'};
   max-width: ${({ theme, breakpoint = 'xl' }) => `${theme.breakpoints[breakpoint]}px`};
   padding-left: ${({ theme }) => theme.wrapSpacing};
   padding-right: ${({ theme }) => theme.wrapSpacing};
