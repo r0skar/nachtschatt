@@ -35,7 +35,7 @@ const defaultVariants = {
   enter: { opacity: 1 }
 }
 
-const ImageContainer = styled.figure<{ fillHeight?: boolean; fillWidth?: boolean }>`
+const Container = styled.figure<{ fillHeight?: boolean; fillWidth?: boolean }>`
   height: ${({ fillHeight }) => (fillHeight ? '100%' : 'auto')};
   width: ${({ fillWidth }) => (fillWidth ? '100%' : 'auto')};
   display: block;
@@ -51,6 +51,12 @@ const Placeholder = styled.svg`
   pointer-events: none;
   position: relative;
   z-index: -1;
+`
+
+const DefaultImage = styled.img`
+  object-fit: cover;
+  height: inherit;
+  width: inherit;
 `
 
 const LazyImage = styled(motion.img)`
@@ -108,7 +114,7 @@ export const Image: React.FC<Props> = props => {
   }, [lazy])
 
   return (
-    <ImageContainer ref={$container} className={className} fillHeight={fillHeight} fillWidth={fillWidth}>
+    <Container ref={$container} className={className} fillHeight={fillHeight} fillWidth={fillWidth}>
       {lazy ? (
         <>
           <Placeholder viewBox="0 0 100 100" ref={$placeholder} className={className} width={width} height={height} />
@@ -124,8 +130,8 @@ export const Image: React.FC<Props> = props => {
           />
         </>
       ) : (
-        <img ref={$image} src={imgSrc} alt={alt} />
+        <DefaultImage ref={$image} src={imgSrc} alt={alt} />
       )}
-    </ImageContainer>
+    </Container>
   )
 }
