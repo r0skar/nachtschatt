@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import * as Sanity from 'picosanity'
 import styled from 'styled-components'
+import { motion, Variants } from 'framer-motion'
 import SanityImageUrl from '@sanity/image-url'
 import { useInView } from 'react-intersection-observer'
 import { ImageUrlBuilderOptions } from '@sanity/image-url/lib/types/types'
@@ -14,13 +15,24 @@ interface Props {
   className?: string
   fillHeight?: boolean
   fillWidth?: boolean
+  variants?: Variants
   options?: ImageUrlBuilderOptions
   imageLoaded?: (el: HTMLImageElement) => void
 }
 
-const defaultImageOptions: ImageUrlBuilderOptions = {
+const defaultOptions: ImageUrlBuilderOptions = {
   auto: 'format',
   fit: 'max'
+}
+
+const transition = {
+  duration: 1,
+  ease: [0.43, 0.13, 0.23, 0.96]
+}
+
+const defaultVariants = {
+  initial: { opacity: 0, transition },
+  enter: { opacity: 1, transition }
 }
 
 const ImageContainer = styled.figure<{ fillHeight?: boolean; fillWidth?: boolean }>`
@@ -36,13 +48,13 @@ const Placeholder = styled(Spinner)`
   width: inherit;
   backface-visibility: hidden;
   display: block;
+  user-select: none;
   pointer-events: none;
   position: relative;
   z-index: -1;
 `
 
-const StyledImage = styled.img<{ hasLoaded: boolean }>`
-  opacity: ${({ hasLoaded }) => (hasLoaded ? 1 : 0)};
+const StyledImage = styled(motion.img)`
   display: block;
   position: absolute;
   height: 100%;
@@ -51,39 +63,45 @@ const StyledImage = styled.img<{ hasLoaded: boolean }>`
   left: 0;
   object-fit: cover;
   backface-visibility: hidden;
-  will-change: opacity;
-  transition: opacity 1s cubic-bezier(0.39, 0.575, 0.565, 1);
+  will-change: transform, opacity;
 `
 
 export const Image: React.FC<Props> = props => {
-  const { lazy = true, imageLoaded: callback, source, alt, options, fillWidth, fillHeight, className } = props
-  const [$container, inView] = useInView({ triggerOnce: true, threshold: 0 })
-  const $placeholder = useRef<SVGSVGElement>(null)
   const $image = useRef<HTMLImageElement>(null)
-  const [hasLoaded, setLoaded] = useState(false)
+  const $placeholder = useRef<SVGSVGElement>(null)
+  const [$container, inView] = useInView({ triggerOnce: true, threshold: 0 })
+
+  const {
+    source,
+    alt,
+    options,
+    fillWidth,
+    fillHeight,
+    className,
+    imageLoaded: callback,
+    lazy = true,
+    variants = defaultVariants
+  } = props
 
   const imgSrc = SanityImageUrl(sanityConfig)
-    .withOptions({ source, ...defaultImageOptions, ...options })
+    .withOptions({ source, ...defaultOptions, ...options })
     .url()!
 
-  let [oriWidth = 1, oriHeight = 1] = imgSrc
+  // Extract original image dimensions from URL.
+  let [width = 1, height = 1] = imgSrc
     .split('-')[1]
     .split('.')[0]
     .split('x')
     .map(Number)
 
+  // Only when BOTH options are provided, we override the image's dimensions.
   if (options?.width && options?.height) {
-    oriWidth = options.width
-    oriHeight = options.height
+    width = options.width
+    height = options.height
   }
 
   useEffect(() => {
-    if (hasLoaded && callback) callback($image.current!)
-  }, [hasLoaded, callback])
-
-  useEffect(() => {
     if (!lazy) return
-
     const { width, height } = $placeholder.current!.getBoundingClientRect()
     $image.current!.style.width = `${width}px`
     $image.current!.style.height = `${height}px`
@@ -91,13 +109,15 @@ export const Image: React.FC<Props> = props => {
 
   return (
     <ImageContainer ref={$container} className={className} fillHeight={fillHeight} fillWidth={fillWidth}>
-      {lazy && <Placeholder ref={$placeholder} width={oriWidth} height={oriHeight} />}
+      {lazy && <Placeholder ref={$placeholder} width={width} height={height} />}
       <StyledImage
         ref={$image}
         alt={alt}
-        hasLoaded={lazy ? hasLoaded : true}
-        onLoad={() => lazy && setLoaded(true)}
         src={lazy ? (inView ? imgSrc : undefined) : imgSrc}
+        onLoad={() => callback && callback($image.current!)}
+        initial={lazy ? 'initial' : undefined}
+        animate={lazy && inView ? 'enter' : undefined}
+        variants={variants}
       />
     </ImageContainer>
   )
