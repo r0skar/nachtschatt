@@ -46,7 +46,6 @@ const ImageContainer = styled.figure<{ fillHeight?: boolean; fillWidth?: boolean
 const Placeholder = styled.svg`
   height: inherit;
   width: inherit;
-  backface-visibility: hidden;
   display: block;
   user-select: none;
   pointer-events: none;

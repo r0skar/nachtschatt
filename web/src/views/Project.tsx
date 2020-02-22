@@ -6,7 +6,7 @@ import { WorkSlider } from '../components/WorkSlider'
 import { Wrap, BlockContent } from '../components/UI'
 
 const articleVariants = {
-  initial: { opacity: 0, x: '10%' },
+  initial: { opacity: 0, x: '25%' },
   enter: { opacity: 1, x: 0 }
 }
 
