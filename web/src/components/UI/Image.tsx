@@ -122,15 +122,15 @@ export const Image: React.FC<Props> = props => {
             ref={$image}
             alt={alt}
             src={inView ? imgSrc : undefined}
-            onLoad={() => callback && callback($image.current!)}
             initial="initial"
             animate={inView ? 'enter' : undefined}
             variants={variants}
             transition={transition}
+            onAnimationComplete={() => callback && callback($image.current!)}
           />
         </>
       ) : (
-        <DefaultImage ref={$image} src={imgSrc} alt={alt} />
+        <DefaultImage ref={$image} src={imgSrc} alt={alt} onLoad={() => callback && callback($image.current!)} />
       )}
     </Container>
   )
