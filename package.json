@@ -30,6 +30,7 @@
     "studio"
   ],
   "devDependencies": {
+    "@sanity/cli": "1.148.6",
     "concurrently": "5.1.0",
     "eslint": "6.8.0"
   },
