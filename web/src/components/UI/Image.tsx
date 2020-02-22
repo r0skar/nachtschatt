@@ -1,12 +1,11 @@
 import React, { useEffect, useRef } from 'react'
 import * as Sanity from 'picosanity'
 import styled from 'styled-components'
-import { motion, Variants } from 'framer-motion'
+import { motion, Variants, Transition } from 'framer-motion'
 import SanityImageUrl from '@sanity/image-url'
 import { useInView } from 'react-intersection-observer'
 import { ImageUrlBuilderOptions } from '@sanity/image-url/lib/types/types'
 import { sanityConfig } from '../../config'
-import { Spinner } from './Spinner'
 
 interface Props {
   source: Sanity.Asset
@@ -16,6 +15,7 @@ interface Props {
   fillHeight?: boolean
   fillWidth?: boolean
   variants?: Variants
+  transition?: Transition
   options?: ImageUrlBuilderOptions
   imageLoaded?: (el: HTMLImageElement) => void
 }
@@ -25,14 +25,14 @@ const defaultOptions: ImageUrlBuilderOptions = {
   fit: 'max'
 }
 
-const transition = {
+const defaultTransition = {
   duration: 1,
   ease: [0.43, 0.13, 0.23, 0.96]
 }
 
 const defaultVariants = {
-  initial: { opacity: 0, transition },
-  enter: { opacity: 1, transition }
+  initial: { opacity: 0 },
+  enter: { opacity: 1 }
 }
 
 const ImageContainer = styled.figure<{ fillHeight?: boolean; fillWidth?: boolean }>`
@@ -43,7 +43,7 @@ const ImageContainer = styled.figure<{ fillHeight?: boolean; fillWidth?: boolean
   overflow: hidden;
 `
 
-const Placeholder = styled(Spinner)`
+const Placeholder = styled.svg`
   height: inherit;
   width: inherit;
   backface-visibility: hidden;
@@ -80,6 +80,7 @@ export const Image: React.FC<Props> = props => {
     className,
     imageLoaded: callback,
     lazy = true,
+    transition = defaultTransition,
     variants = defaultVariants
   } = props
 
@@ -109,7 +110,9 @@ export const Image: React.FC<Props> = props => {
 
   return (
     <ImageContainer ref={$container} className={className} fillHeight={fillHeight} fillWidth={fillWidth}>
-      {lazy && <Placeholder ref={$placeholder} width={width} height={height} />}
+      {lazy && (
+        <Placeholder viewBox="0 0 100 100" ref={$placeholder} className={className} width={width} height={height} />
+      )}
       <StyledImage
         ref={$image}
         alt={alt}
@@ -118,6 +121,7 @@ export const Image: React.FC<Props> = props => {
         initial={lazy ? 'initial' : undefined}
         animate={lazy && inView ? 'enter' : undefined}
         variants={variants}
+        transition={transition}
       />
     </ImageContainer>
   )
