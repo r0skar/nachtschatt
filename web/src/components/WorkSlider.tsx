@@ -30,6 +30,8 @@ const navVariants = {
 const Container = styled.div`
   height: 100%;
   width: 100%;
+  position: relative;
+  overflow: hidden;
 `
 
 const Wrapper = styled.div`
@@ -127,7 +129,13 @@ export const WorkSlider: React.FC<Props> = ({ works }) => {
   return (
     <Container>
       <Wrapper>
-        <Slider ref={$slider} drag="x" animate={controls} dragConstraints={{ left: dragWidth * -1, right: 0 }}>
+        <Slider
+          ref={$slider}
+          drag="x"
+          dragDirectionLock={true}
+          animate={controls}
+          dragConstraints={{ left: dragWidth * -1, right: 0 }}
+        >
           {works.map(work => (
             <Slide key={work._id}>
               <Image source={work.image} alt={work.title} fillHeight={true} variants={lazyImageVariants} />

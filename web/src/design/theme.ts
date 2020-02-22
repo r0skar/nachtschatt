@@ -9,7 +9,7 @@ export const theme: DefaultTheme = {
   colors: {
     bg: '#ffffff',
     fg: '#222222',
-    primary: '#ff0000',
+    primary: '#CC1619',
     subtle: '#aaaaaa'
   },
   fonts: {

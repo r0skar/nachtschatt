@@ -104,7 +104,7 @@ export const Category: React.FC = () => {
       <Grid>
         {projects.map(({ project, row = 1, col = GRID_COL_COUNT }) => (
           <GridItem key={project.slug.current} row={row} col={col}>
-            <ProjectContainer whileHover="hover" variants={containerVariants} transition={transition}>
+            <ProjectContainer whileHover="hover" whileTap="hover" variants={containerVariants} transition={transition}>
               <ProjectLink to={`/work/${categorySlug}/${project.slug.current}`}>
                 <ImageContainer variants={imageVariants} transition={transition}>
                   <Image
