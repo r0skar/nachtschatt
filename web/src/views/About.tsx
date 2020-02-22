@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useContent } from '../store/content'
-import { styledArticle } from '../design/mixins'
 import { Wrap, Image, BlockContent } from '../components/UI'
 
 const Grid = styled.article`
@@ -29,7 +28,6 @@ const CoverImage = styled(Image)`
 `
 
 const Content = styled(BlockContent)`
-  ${styledArticle()}
   grid-area: content;
 `
 

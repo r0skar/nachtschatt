@@ -2,7 +2,6 @@ import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
 import { useContent } from '../store/content'
-import { styledArticle } from '../design/mixins'
 import { WorkSlider } from '../components/WorkSlider'
 import { Wrap, BlockContent } from '../components/UI'
 
@@ -39,7 +38,6 @@ const Gallery = styled.div`
 `
 
 const Content = styled(BlockContent)`
-  ${styledArticle()}
   grid-area: content;
 `
 
