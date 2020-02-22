@@ -69,7 +69,7 @@ const StyledImage = styled(motion.img)`
 export const Image: React.FC<Props> = props => {
   const $image = useRef<HTMLImageElement>(null)
   const $placeholder = useRef<SVGSVGElement>(null)
-  const [$container, inView] = useInView({ triggerOnce: true, threshold: 0 })
+  const [$container, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
 
   const {
     source,
