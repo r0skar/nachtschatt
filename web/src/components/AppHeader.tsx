@@ -52,6 +52,7 @@ const SubTitle = styled(motion.h2)`
   /* Only hide it visually in order to keep the grid layout as is. */
   @media screen and (max-width: ${({ theme }) => theme.breakpoints.sm}px) {
     visibility: hidden;
+    width: 0;
   }
 `
 
