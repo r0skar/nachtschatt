@@ -94,7 +94,7 @@ export const Image: React.FC<Props> = props => {
     .url()!
 
   // Extract original image dimensions from URL.
-  let [width = 1, height = 1] = imgSrc
+  let [oriWidth = 1, oriHeight = 1] = imgSrc
     .split('-')[1]
     .split('.')[0]
     .split('x')
@@ -102,22 +102,28 @@ export const Image: React.FC<Props> = props => {
 
   // Only when BOTH options are provided, we override the image's dimensions.
   if (options?.width && options?.height) {
-    width = options.width
-    height = options.height
+    oriWidth = options.width
+    oriHeight = options.height
   }
 
   useEffect(() => {
     if (!lazy) return
     const { width, height } = $placeholder.current!.getBoundingClientRect()
-    $image.current!.parentElement!.style.width = `${width}px`
-    $image.current!.parentElement!.style.height = `${height}px`
+    $image.current!.parentElement!.style.width = `${Math.round(width)}px`
+    $image.current!.parentElement!.style.height = `${Math.round(height)}px`
   }, [lazy])
 
   return (
     <Container ref={$container} className={className} fillHeight={fillHeight} fillWidth={fillWidth}>
       {lazy ? (
         <>
-          <Placeholder viewBox="0 0 100 100" ref={$placeholder} className={className} width={width} height={height} />
+          <Placeholder
+            viewBox="0 0 100 100"
+            ref={$placeholder}
+            className={className}
+            width={oriWidth}
+            height={oriHeight}
+          />
           <LazyImage
             ref={$image}
             alt={alt}
