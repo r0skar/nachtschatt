@@ -55,13 +55,13 @@ export default {
           validation: Rule => Rule.required()
         },
         {
-          name: 'text',
+          name: 'email',
           type: 'string',
           title: 'Email',
           validation: Rule => Rule.required()
         },
         {
-          name: 'text',
+          name: 'telephone',
           type: 'string',
           title: 'Telephone',
           validation: Rule => Rule.required()
