@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { motion } from 'framer-motion'
 import { useContent } from '../store/content'
 import { Link, useLocation } from 'react-router-dom'
 import { Wrap } from './UI'
@@ -7,6 +8,16 @@ import { Wrap } from './UI'
 interface Props {
   hasSolidBg: boolean
   toggleNav: () => void
+}
+
+const subTitleTransition = {
+  duration: 1,
+  ease: [0.43, 0.13, 0.23, 0.96]
+}
+
+const subTitleVariants = {
+  initial: { opacity: 0, x: -10 },
+  enter: { opacity: 1, x: 0 }
 }
 
 const Container = styled.header<{ hasSolidBg: boolean }>`
@@ -32,7 +43,7 @@ const MainTitle = styled.h1`
   text-transform: uppercase;
 `
 
-const SubTitle = styled.h2`
+const SubTitle = styled(motion.h2)`
   color: ${({ theme }) => theme.colors.subtle};
   font-size: 1.5rem;
   text-transform: uppercase;
@@ -64,7 +75,15 @@ export const AppHeader: React.FC<Props> = ({ toggleNav, hasSolidBg }) => {
           <MainTitle>
             <Link to="/">{content.config.title}</Link>
           </MainTitle>
-          <SubTitle>{pageTitle}</SubTitle>
+          <SubTitle
+            key={pageTitle}
+            initial="initial"
+            animate="enter"
+            variants={subTitleVariants}
+            transition={subTitleTransition}
+          >
+            {pageTitle}
+          </SubTitle>
           <NavButton onClick={toggleNav}>
             <svg viewBox="0 0 384.97 384.97">
               <path d="M12.03,120.303h360.909c6.641,0,12.03-5.39,12.03-12.03c0-6.641-5.39-12.03-12.03-12.03H12.03 c-6.641,0-12.03,5.39-12.03,12.03C0,114.913,5.39,120.303,12.03,120.303z" />
