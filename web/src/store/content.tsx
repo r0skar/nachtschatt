@@ -16,6 +16,8 @@ export interface Config extends Sanity.Document {
   about: {
     image: Sanity.Asset
     text: Sanity.Block[]
+    email: string
+    telephone: string
   }
 }
 

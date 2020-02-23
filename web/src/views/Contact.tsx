@@ -105,10 +105,10 @@ export const Contact: React.FC = () => {
             <BlockContent blocks={content.config.about.text} />
             <ContactList>
               <li>
-                <a href="mailto:mailto@gmail.com">mailto@gmail.com</a>
+                <a href={`mailto:${content.config.about.email}`}>{content.config.about.email}</a>
               </li>
               <li>
-                <a href="tel:004323095472">004323095472</a>
+                <a href={`tel:${content.config.about.telephone}`}>{content.config.about.telephone}</a>
               </li>
             </ContactList>
           </Article>

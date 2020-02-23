@@ -52,6 +52,18 @@ export default {
           type: 'blockContent',
           title: 'About me',
           validation: Rule => Rule.required()
+        },
+        {
+          name: 'text',
+          type: 'string',
+          title: 'Email',
+          validation: Rule => Rule.required()
+        },
+        {
+          name: 'text',
+          type: 'string',
+          title: 'Telephone',
+          validation: Rule => Rule.required()
         }
       ]
     }
