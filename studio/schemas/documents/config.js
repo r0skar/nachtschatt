@@ -44,13 +44,14 @@ export default {
           name: 'image',
           type: 'image',
           title: 'About Image',
-          description: 'Image for the About page',
+          description: 'Image for the contact page',
           validation: Rule => Rule.required()
         },
         {
           name: 'text',
           type: 'blockContent',
           title: 'About me',
+          description: 'Text for the contact page',
           validation: Rule => Rule.required()
         },
         {
