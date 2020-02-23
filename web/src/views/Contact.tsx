@@ -61,7 +61,7 @@ const Article = styled.article`
 const ContactList = styled.ul`
   display: grid;
   grid-row-gap: ${({ theme }) => theme.scale(0.5)};
-  font-style: italic;
+  font-weight: 900;
 `
 
 export const Contact: React.FC = () => {

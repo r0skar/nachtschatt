@@ -8,7 +8,6 @@ export const sanityConfig: Sanity.Config = {
 
 export const primaryNav = [
   { name: 'Contact', to: '/contact' },
-  { name: 'About', to: '/about' },
   {
     name: 'Comission',
     children: [

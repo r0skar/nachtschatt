@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { Switch, Route } from 'react-router-dom'
 import { Home } from '../views/Home'
-import { About } from '../views/About'
 import { Contact } from '../views/Contact'
 import { Project } from '../views/Project'
 import { Category } from '../views/Category'
@@ -28,7 +27,6 @@ export const AppMain: React.FC = () => (
     <Main>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/about" component={About} />
         <Route exact path="/contact" component={Contact} />
         <Route exact path="/work/:categorySlug" component={Category} />
         <Route exact path="/work/:categorySlug/:projectSlug" component={Project} />
