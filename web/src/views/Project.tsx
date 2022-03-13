@@ -60,7 +60,7 @@ export const Project: React.FC = () => {
   }
 
   return (
-    <Wrap fillHeight>
+    <Wrap fillHeight pinRight>
       <Grid>
         <Gallery>
           {project.works?.length > 0 ? <WorkSlider works={project.works} /> : <p>No works available.</p>}
