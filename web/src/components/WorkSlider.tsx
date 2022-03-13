@@ -84,7 +84,7 @@ const Navigation = styled(motion.nav)`
   z-index: 1;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}px) {
-    bottom: ${({ theme }) => `calc(((${theme.appHeaderHeight} + ${NAV_HEIGHT}) / 3) * -1);`};
+    bottom: ${({ theme }) => `calc(((${theme.appHeaderHeight} + ${NAV_HEIGHT}) / 2) * -1);`};
   }
 
   // Add padding here, because wrapper is pinned to the right
@@ -145,7 +145,7 @@ export const WorkSlider: React.FC<Props> = ({ works }) => {
           animate={controls}
           dragConstraints={{ left: dragWidth * -1, right: 0 }}
         >
-          {works.map(work => (
+          {works.map((work) => (
             <Slide key={work._id}>
               <Image source={work.image} alt={work.title} fillHeight={true} variants={lazyImageVariants} />
             </Slide>

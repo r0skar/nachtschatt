@@ -4,7 +4,7 @@ export const theme: DefaultTheme = {
   baseline: 1.5,
   baseTextSize: 'calc(12px + 0.25vmin)',
   wrapSpacing: '5vw',
-  appHeaderHeight: '15vh',
+  appHeaderHeight: '10vh',
   scale: factor => `${0.5 * factor * theme.baseline}rem`,
   colors: {
     bg: '#ffffff',
