@@ -95,10 +95,10 @@ export const Image: React.FC<Props> = props => {
 
   // Extract original image dimensions from URL.
   let [oriWidth = 1, oriHeight = 1] = imgSrc
-    .split('-')[1]
-    .split('.')[0]
-    .split('x')
-    .map(Number)
+  .split('-')[1]
+  .split('.')[0]
+  .split('x')
+  .map(Number)
 
   // Only when BOTH options are provided, we override the image's dimensions.
   if (options?.width && options?.height) {

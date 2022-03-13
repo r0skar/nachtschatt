@@ -11,6 +11,7 @@ const articleVariants = {
 }
 
 const Grid = styled.article`
+  flex: 1;
   height: 100%;
   display: grid;
   grid-row-gap: ${({ theme }) => theme.scale(4)};

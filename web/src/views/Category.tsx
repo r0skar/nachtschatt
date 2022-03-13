@@ -31,6 +31,7 @@ const lazyImageVariants = {
 }
 
 const Grid = styled.ul`
+  flex: 1;
   display: grid;
   grid-gap: ${GRID_GAP};
   grid-auto-flow: dense;
@@ -101,7 +102,7 @@ export const Category: React.FC = () => {
   }
 
   return (
-    <Wrap>
+    <Wrap fillHeight>
       <Grid>
         {projects.map(({ project, row = 1, col = GRID_COL_COUNT }) => (
           <GridItem key={project.slug.current} row={row} col={col}>
