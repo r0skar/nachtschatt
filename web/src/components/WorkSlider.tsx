@@ -86,6 +86,9 @@ const Navigation = styled(motion.nav)`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}px) {
     bottom: ${({ theme }) => `calc(((${theme.appHeaderHeight} + ${NAV_HEIGHT}) / 2) * -1);`};
   }
+
+  // Add padding here, because wrapper is pinned to the right
+  padding-right: 5vw;
 `
 
 const NavButton = styled.button`
