@@ -50,7 +50,7 @@ export const AppNav: React.FC = () => (
             ) : (
               <>
                 <NavHeader primary>{li.name}</NavHeader>
-                <SubNav>
+                {/* <SubNav>
                   {li.children?.map(child => (
                     <li key={child.name}>
                       <Link to={child.to}>
@@ -58,7 +58,7 @@ export const AppNav: React.FC = () => (
                       </Link>
                     </li>
                   ))}
-                </SubNav>
+                </SubNav> */}
               </>
             )}
           </li>
