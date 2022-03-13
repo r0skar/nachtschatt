@@ -9,16 +9,16 @@ const GRID_GAP = '1rem'
 const GRID_COL_COUNT = 3
 
 const transition = {
-  duration: 0.3,
+  duration: 0.15,
   ease: [0.43, 0.13, 0.23, 0.96]
 }
 
 const containerVariants = {
-  hover: { scale: 0.95 }
+  hover: { scale: 1 }
 }
 
 const imageVariants = {
-  hover: { scale: 1.15 }
+  hover: { scale: 1.1 }
 }
 
 const titleVariants = {
@@ -26,7 +26,7 @@ const titleVariants = {
 }
 
 const lazyImageVariants = {
-  initial: { opacity: 0, y: '100%' },
+  initial: { opacity: 0, y: '25%' },
   enter: { opacity: 1, y: 0 }
 }
 
