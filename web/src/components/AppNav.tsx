@@ -31,35 +31,18 @@ const NavHeader = styled.span<{ primary?: boolean }>`
   font-weight: ${({ primary }) => primary && 900};
 `
 
-const SubNav = styled.ul`
-  display: inline-grid;
-  padding-left: 2rem;
-  grid-row-gap: ${({ theme }) => theme.scale(0.25)};
-`
-
 export const AppNav: React.FC = () => (
   <Container>
     <Wrap>
       <NavList>
-        {primaryNav.map(li => (
+        {primaryNav.map((li) => (
           <li key={li.name}>
             {li.to ? (
               <Link to={li.to}>
                 <NavHeader primary>{li.name}</NavHeader>
               </Link>
             ) : (
-              <>
-                <NavHeader primary>{li.name}</NavHeader>
-                {/* <SubNav>
-                  {li.children?.map(child => (
-                    <li key={child.name}>
-                      <Link to={child.to}>
-                        <NavHeader>{child.name}</NavHeader>
-                      </Link>
-                    </li>
-                  ))}
-                </SubNav> */}
-              </>
+              <NavHeader primary>{li.name}</NavHeader>
             )}
           </li>
         ))}
