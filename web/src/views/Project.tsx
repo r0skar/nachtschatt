@@ -17,8 +17,8 @@ const Grid = styled.article`
   grid-row-gap: ${({ theme }) => theme.scale(4)};
   grid-template-rows: max-content 1fr;
   grid-template-areas:
-    'gallery gallery'
-    'content content';
+    'content content'
+    'gallery gallery';
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}px) {
     grid-template-columns: minmax(min-content, 30ch) minmax(50%, 1fr);
@@ -45,6 +45,7 @@ const Gallery = styled.div`
 
 const Content = styled(BlockContent)`
   grid-area: content;
+  max-width: 400px;
 `
 
 export const Project: React.FC = () => {
