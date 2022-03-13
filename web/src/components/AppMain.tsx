@@ -14,7 +14,7 @@ const Container = styled.main`
 `
 
 const Spacer = styled.div`
-  height: ${({ theme }) => theme.appHeaderHeight};
+  height: ${({ theme }) => `calc((${theme.appHeaderHeight} / 2) + 1rem)`};
 `
 
 const Main = styled.div`
